@@ -62,7 +62,8 @@ This should install matscipy and it's dependencies.
 ### Getting the Jupyter Notebook working
 You now need to install ipython, and create a kernel for you virtual environment to use the jupyter notebook. Run:
 ```
-pip install ipython=8.5.0
+pip install ipython==8.5.0
+pip install ipykernel
 ```
 Now deactivate and reactivate your virtual environment again, e.g,
 ```
@@ -76,7 +77,7 @@ ipython kernel install --user --name=myvenv
 ```
 and finally install all the remaining modules
 ```
-pip install nglview h5py 
+pip install nglview h5py mpi4py
 ```
 
 and then (making sure you're in the same directory as this readme), run
@@ -84,3 +85,20 @@ and then (making sure you're in the same directory as this readme), run
 jupyter-notebook
 ```
 Once the you've opened up the notebook (Walkthrough_Notebook.ipynb), select 'kernel > change kernel > myvenv'. Now you should be able to run the notebook. This notebook contains information on and examples of code written over the summer and how to interface with it, as well as instructions on how to run the reproducible result.
+
+### Restart guidance:
+If you don't want to do this all in one sitting (or open another terminal), run the following commands to load up the virtual environment and modules:
+
+```
+module purge; module load GCC/11.2.0 OpenBLAS/0.3.18 CMake/3.22.1 OpenMPI/4.1.1 Python/3.9.6
+source myvenv/bin/activate
+```
+
+### POSSIBLE ERRORS
+If you see the line 'command not recognised: mpirun', this means that you likely started a new terminal and did not reload the modules at the top of this page before entering the virtual environment. Run:
+
+```
+deactivate
+module purge; module load GCC/11.2.0 OpenBLAS/0.3.18 CMake/3.22.1 OpenMPI/4.1.1 Python/3.9.6
+source myvenv/bin/activate
+```

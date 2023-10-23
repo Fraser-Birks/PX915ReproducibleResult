@@ -24,8 +24,8 @@ variable ymin equal bound(crack,ymin)
 
 
 #---------- Define Regions for Top and Bottom Layers ----------
-region top_layer block INF INF $((v_ymin)) $((v_ymin+1)) INF INF
-region bottom_layer block INF INF $((v_ymax)-1) $(v_ymax) INF INF
+region top_layer block INF INF $((v_ymin)) $((v_ymin+3)) INF INF
+region bottom_layer block INF INF $((v_ymax)-3) $(v_ymax) INF INF
 
 
 #---------- Immobilize Atoms within 1 unit of the boundaries ----------
