@@ -1,0 +1,64 @@
+# ---------- Initialize Simulation --------------------- 
+clear 
+dimension 3
+boundary s s p
+atom_style atomic
+units metal
+
+
+#----------Read atoms------------
+read_data crack.lj
+
+#----------Define potential-------
+mass 1 12.101
+pair_style hybrid/overlay pace table spline 10000
+pair_coeff * * pace c_v3.yace C
+pair_coeff * * table d2.table D2 9.0
+
+
+#---------- Determine Lowest and Highest y-coordinates ----------
+group crack type 1
+
+variable ymax equal bound(crack,ymax)
+variable ymin equal bound(crack,ymin)
+
+
+#---------- Define Regions for Top and Bottom Layers ----------
+region top_layer block INF INF $((v_ymin)) $((v_ymin+1)) INF INF
+region bottom_layer block INF INF $((v_ymax)-1) $(v_ymax) INF INF
+
+
+#---------- Immobilize Atoms within 1 unit of the boundaries ----------
+
+# Identify atoms within 1 unit of the top and bottom boundaries
+group top_atoms region top_layer
+group bottom_atoms region bottom_layer
+
+# Fix the top and bottom atoms to prevent their movement
+fix 1 top_atoms setforce 0.0 0.0 0.0
+fix 2 bottom_atoms setforce 0.0 0.0 0.0
+
+
+# Create a group for non-fixed atoms
+group non_fixed_atoms subtract all top_atoms bottom_atoms
+
+# Set the velocity for non-fixed atoms only
+velocity non_fixed_atoms create 50.0 87287
+
+# Run for a number of timesteps (adjust the number as needed)
+timestep 0.001
+
+# Apply a thermostat to control the temperature (adjust parameters as needed)
+fix therm non_fixed_atoms nvt temp 50.0 50.0 0.1
+
+# Add a dump command to save .lammpstrj files every 100 timesteps during equilibration
+dump myDump all atom 100 dump.lammpstrj
+
+# Specify the output frequency for thermo data
+thermo 100
+  
+# Run the simulation for a specified number of timesteps
+run 1000
+
+
+
