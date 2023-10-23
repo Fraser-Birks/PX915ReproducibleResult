@@ -180,10 +180,7 @@ crack_slab.set_array('fixed_mask', fixed_mask)
 ase.io.write('slab.xyz', crack_slab, format='extxyz')
 
 # ****** Apply initial strain ramp *****
-initial_K = float(sys.argv[1])
-initial_K_ase = (initial_K/1000) * (units.GPa*np.sqrt(units.m))
-initial_G = (initial_K_ase**2)/E
-#initial_G = (parameter('initial_K_ase')**2)/E
+initial_G = (parameter('initial_K_ase')**2)/E
 print('E is', E)
 strain = G_to_strain(initial_G, E, nu, orig_height)
 
