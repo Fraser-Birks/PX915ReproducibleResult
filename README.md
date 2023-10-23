@@ -85,4 +85,4 @@ and then (making sure you're in the same directory as this readme), run
 ```
 jupyter-notebook
 ```
-Once the you've opened up the notebook, select 'kernel > change kernel > myvenv'. Now you should be able to run the notebook!
+Once the you've opened up the notebook (Walkthrough_Notebook.ipynb), select 'kernel > change kernel > myvenv'. Now you should be able to run the notebook. This notebook contains information on and examples of code written over the summer and how to interface with it, as well as instructions on how to run the reproducible result.
