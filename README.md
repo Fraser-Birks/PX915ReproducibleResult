@@ -55,9 +55,7 @@ If you don't see this, then something has gone wrong. Feel free to get in touch 
 ### Installing matscipy and it's dependencies
 We next need to install matscipy, which contains the bulk of the code that was written over the summer. Navigate to the directory that this readme is in and run the following:
 ```
-git clone https://github.com/libAtoms/matscipy
-cd matscipy
-pip install .
+pip install git+https://github.com/libAtoms/matscipy
 ```
 This should install matscipy and it's dependencies.
 
